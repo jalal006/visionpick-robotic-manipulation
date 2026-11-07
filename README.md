@@ -1,14 +1,14 @@
 # VisionPick — Autonomous Camera-Guided Robotic Manipulation
 
 A simulation-only robotics portfolio project: a UR5e will eventually locate randomly
-placed colored blocks in simulated camera images, estimate grasp poses, plan
+placed and rotated colored blocks using a rendered overhead camera, estimate grasp poses, plan
 collision-aware movements, sort objects, verify placement, recover from failures,
 and benchmark at least 30 seeded randomized scenes.
 
 **Checkpoint, 2026-11-08: Milestone 1 verified locally.** Real Gazebo joint motion,
 A/B/home feedback verification, automatic MoveIt planning/execution, and one actual
-RViz MotionPlanning **Plan & Execute** operation have passed. Publication is
-pending GitHub authentication/repository access. Read
+RViz MotionPlanning **Plan & Execute** operation have passed. The checkpoint is
+published on [GitHub](https://github.com/jalal006/visionpick-robotic-manipulation). Read
 [latest verification](docs/MILESTONE_01_RECHECK_2026-11-08.md) and
 [limitations](docs/ENVIRONMENT.md) before presenting this work.
 
@@ -130,5 +130,6 @@ performance is claimed. Follow the shutdown guidance in the environment document
 No license has been selected on the owner's behalf. No LICENSE file is included;
 choose a license before inviting reuse. Upstream packages keep their own licenses.
 
-The intended remote is `https://github.com/jalal006/visionpick-robotic-manipulation.git`.
-Do not describe it as published until its remote SHA is verified.
+The public repository is [jalal006/visionpick-robotic-manipulation](https://github.com/jalal006/visionpick-robotic-manipulation).
+Publication was verified by matching the local commit to remote main.
+See [project status](docs/PROJECT_STATUS.md) for the known pushed implementation SHA.

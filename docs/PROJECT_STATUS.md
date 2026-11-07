@@ -2,13 +2,15 @@
 
 - **Project:** VisionPick — Autonomous Camera-Guided Robotic Manipulation.
 - **Checkpoint date:** 2026-11-08, Europe/Prague.
-- **Verified milestone:** Milestone 1 COMPLETE locally; publication pending.
+- **Verified milestone:** Milestone 1 COMPLETE; published to the intended public GitHub repository.
 - **Latest independent external checkpoint supplied by the owner:** November 7
   repository lookup returned 404/inaccessible. Local work was inspected and preserved.
 - **Existing source preserved:** foundation commit
   `835645eabab6675aa453f36f920804aca19742ff`, plus all ignored raw logs.
-- **Current source:** the upcoming recheck commit includes the acceleration check
-  and new evidence; its resulting SHA is reported after committing.
+- **Verified pushed implementation commit:** c76e2f3cb669b06f8432b1d5a5e7851976ee9d13.
+  GitHub main and the local SHA matched after publication. This documentation-only
+  follow-up records that already-known SHA; the final follow-up SHA is reported
+  after committing/pushing and can be read with git rev-parse HEAD.
 - **Workspace:** `~/visionpick_ws` in WSL distribution `Ubuntu-24.04`.
 - **Intended remote:** `https://github.com/jalal006/visionpick-robotic-manipulation.git`.
 
@@ -70,10 +72,22 @@ directory and environment sourcing.
 
 ## Publication
 
-GitHub browser authentication was completed by the owner and verified as
-jalal006. Authenticated lookup confirmed the intended repository was absent.
-No credential or token is stored in this repository. Publication and the remote
-SHA will be verified after the reviewed commit is created.
+GitHub browser authentication was completed by the owner and verified as jalal006.
+The intended repository was created as public, main was pushed, and its remote
+SHA was verified against the local implementation commit above. No credential or
+token is stored in the repository; raw logs/screenshots remain ignored.
+
+Repository: [jalal006/visionpick-robotic-manipulation](https://github.com/jalal006/visionpick-robotic-manipulation).
+
+Verify future checkpoints with:
+
+~~~bash
+git rev-parse HEAD
+git ls-remote origin refs/heads/main
+~~~
+
+The two SHAs must match. GitHub publication is now verified; an external reviewer
+can independently inspect the evidence and reproduce the procedure.
 
 ## Limitations and next work
 
@@ -87,8 +101,7 @@ Today's execution checks showed no controller crash. The simulation was left
 running at home after verification.
 
 Milestone 1 is the only completed implementation milestone. Stop here this week.
-Milestone 2 (workcell/gripper/objects) is next, after publication and review of
-contact/shutdown limitations.
+Milestone 2 (workcell/gripper/objects) is next, after review of contact/shutdown limitations.
 
 CV wording can describe a **simulated UR5e workcell with ROS 2 Jazzy, Gazebo Harmonic,
 MoveIt trajectory execution and measured joint-feedback validation**. Autonomous
