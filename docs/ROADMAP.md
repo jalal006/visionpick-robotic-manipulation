@@ -18,7 +18,7 @@ evidence; this list is a plan, not a capability claim.
    visual placement verification in an explicit task state machine.
 7. **Failure recovery:** detect misses, stale images, planning failures and
    placement errors; retry within bounded policies and record reasons.
-8. **Benchmark and release:** seeded trials, success/time/error metrics, repeatable
+8. **Benchmark and release:** at least 30 seeded randomized scenes, success/time/error metrics, repeatable
    results, concise demo, installation guide and honestly scoped portfolio claims.
 
 Milestone 0 means no verified implementation. The 2026-10-31 external check was

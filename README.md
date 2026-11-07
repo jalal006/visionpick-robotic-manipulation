@@ -3,13 +3,13 @@
 A simulation-only robotics portfolio project: a UR5e will eventually locate randomly
 placed colored blocks in simulated camera images, estimate grasp poses, plan
 collision-aware movements, sort objects, verify placement, recover from failures,
-and benchmark randomized trials.
+and benchmark at least 30 seeded randomized scenes.
 
-**Checkpoint, 2026-11-02: Milestone 1 verified locally.** Real Gazebo joint motion,
+**Checkpoint, 2026-11-08: Milestone 1 verified locally.** Real Gazebo joint motion,
 A/B/home feedback verification, automatic MoveIt planning/execution, and one actual
 RViz MotionPlanning **Plan & Execute** operation have passed. Publication is
 pending GitHub authentication/repository access. Read
-[verification](docs/MILESTONE_01_VERIFICATION.md) and
+[latest verification](docs/MILESTONE_01_RECHECK_2026-11-08.md) and
 [limitations](docs/ENVIRONMENT.md) before presenting this work.
 
 This is independent of ReConFactory. No camera, gripper, perception, AI, sorting,
@@ -17,13 +17,21 @@ or custom ROS package is implemented yet.
 
 ## Run Milestone 1
 
-From Windows PowerShell:
+Open **Windows PowerShell** from the Start menu and run:
 
 ```powershell
-wsl -d Ubuntu-24.04
+wsl -d Ubuntu-24.04 --cd '~'
 ```
 
-Use the Linux filesystem workspace, not a build under `/mnt/c`:
+The plain **Ubuntu** app opens a separate distribution with a different home
+directory. From inside that app, enter `wsl.exe -d Ubuntu-24.04 --cd '~'`
+first. Confirm `echo "$WSL_DISTRO_NAME"` prints `Ubuntu-24.04`.
+Do not paste PowerShell's `wsl` command into Bash; use `wsl.exe` there.
+
+**In that Ubuntu-24.04 terminal**, enter the project and source its environment.
+Every new terminal needs both `cd ~/visionpick_ws` and `source scripts/common.sh`.
+The runnable workspace is on the Linux filesystem; the Windows folder is only
+a review snapshot:
 
 ```bash
 cd ~/visionpick_ws
@@ -34,7 +42,8 @@ source scripts/common.sh
 bash scripts/launch_simulation.sh
 ```
 
-Leave that terminal open. In a second **Ubuntu-24.04** terminal:
+Leave the simulation terminal open. Open a **second Windows PowerShell** window,
+run `wsl -d Ubuntu-24.04 --cd '~'`, then paste this complete block:
 
 ```bash
 cd ~/visionpick_ws
@@ -76,7 +85,9 @@ Documented startup home, radians: **[0, -1.57, 0, -1.57, 0, 0]**.
 A full verification run captures the measured startup pose as its return target.
 Pose A adds +0.10 rad to shoulder pan and +0.08 rad to wrist 3; Pose B subtracts
 the same offsets from home. Direct segments last 6 seconds, with zero endpoint
-velocity/acceleration, and undergo URDF soft-limit and sampled MoveIt collision
+velocity/acceleration. Peak acceleration is checked against live MoveIt limits
+and capped at 0.1 rad/s² (also no more than 10% of the configured limit).
+Segments undergo URDF soft-limit and sampled MoveIt collision
 checks. This is a small empty-world smoke test, not a general manipulation planner.
 
 The official SRDF calls its near-equivalent pose `up`. Its named `home` instead

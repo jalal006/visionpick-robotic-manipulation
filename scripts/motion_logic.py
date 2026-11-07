@@ -79,3 +79,19 @@ def assess(start, target, samples, tolerance=.02):
         if abs(b-a) > 2*tolerance and excursion[i] < abs(b-a)*.5:
             raise ValueError("Action succeeded without measured movement")
     return error, excursion
+
+
+def validate_acceleration(start, target, joints, limits, duration):
+    """Bound peak quintic acceleration against live MoveIt planning limits."""
+    if len(start) != len(joints) or len(target) != len(joints):
+        raise ValueError("Joint vector length mismatch")
+    if not math.isfinite(duration) or duration < 4.0:
+        raise ValueError("At least four seconds per movement required")
+    for name, a, b in zip(joints, start, target):
+        limit = limits[name]
+        if not all(map(math.isfinite, (a, b, limit))) or limit <= 0:
+            raise ValueError(f"Invalid acceleration input: {name}")
+        # max |d2/dt2 (10u^3 - 15u^4 + 6u^5)| = 10/sqrt(3) / T^2.
+        peak = (10 / math.sqrt(3)) * abs(b - a) / duration**2
+        if peak > min(.1, limit * .1):
+            raise ValueError(f"Acceleration too high: {name}")

@@ -24,7 +24,7 @@ from moveit_msgs.srv import GetStateValidity
 from sensor_msgs.msg import JointState
 from std_msgs.msg import String
 from trajectory_msgs.msg import JointTrajectoryPoint
-from motion_logic import limits_from_urdf, ordered_positions, validate_segment, make_targets, assess
+from motion_logic import limits_from_urdf, ordered_positions, validate_segment, make_targets, assess, validate_acceleration
 
 
 class Verifier(Node):
@@ -123,6 +123,19 @@ class Verifier(Node):
         self.wait(lambda: self.urdf is not None and self.latest is not None and
                   self.get_clock().now().nanoseconds > 0, 20, "Missing description/clock/joint states")
         self.limits = limits_from_urdf(self.urdf, self.joints)
+        planning_params = AsyncParameterClient(self, self.args.move_group_node)
+        if not planning_params.wait_for_services(timeout_sec=20):
+            raise RuntimeError("MoveIt parameter service missing")
+        names = [f"robot_description_planning.joint_limits.{j}.{field}"
+                 for j in self.joints for field in
+                 ("has_acceleration_limits", "max_acceleration")]
+        values = self.result(planning_params.get_parameters(names)).values
+        self.acceleration_limits = {}
+        for i, joint in enumerate(self.joints):
+            enabled, limit = values[2*i:2*i+2]
+            if enabled.type != 1 or not enabled.bool_value or limit.type != 3:
+                raise RuntimeError(f"Missing configured acceleration limit: {joint}")
+            self.acceleration_limits[joint] = limit.double_value
         self.home = self.fresh()
         # This verifier deliberately covers only the inspected official initial 'up' posture.
         expected = dict(shoulder_pan_joint=0., shoulder_lift_joint=-1.57, elbow_joint=0.,
@@ -142,7 +155,9 @@ class Verifier(Node):
         self.event("ready", mode=self.args.mode, controller=controller.name,
                    controller_type=controller.type, action=self.action_name,
                    joints=self.joints, home=self.home, effective_limits=self.limits,
-                   tolerance_rad=self.args.tolerance, duration_s=self.args.duration)
+                   tolerance_rad=self.args.tolerance, duration_s=self.args.duration,
+                   configured_acceleration_limits=self.acceleration_limits,
+                   verifier_acceleration_cap_rad_s2=.1)
         if self.args.mode == "moveit":
             self.moveit = ActionClient(self, MoveGroup, self.args.moveit_action)
             if not self.moveit.wait_for_server(timeout_sec=20):
@@ -198,6 +213,8 @@ class Verifier(Node):
     def move(self, label, target):
         start = self.fresh()
         validate_segment(start, target, self.joints, self.limits, self.args.duration)
+        validate_acceleration(start, target, self.joints,
+                              self.acceleration_limits, self.args.duration)
         self.check_path(start, target)
         # Reject unexpected drift during validation before issuing the goal.
         current = self.fresh()
@@ -270,6 +287,7 @@ def main():
     parser.add_argument("--joint-states", default="/joint_states")
     parser.add_argument("--description-topic", default="/robot_description")
     parser.add_argument("--group", default="ur_manipulator")
+    parser.add_argument("--move-group-node", default="/move_group")
     parser.add_argument("--moveit-action", default="/move_action")
     parser.add_argument("--validity-service", default="/check_state_validity")
     parser.add_argument("--duration", type=float, default=6.)

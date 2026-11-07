@@ -1,94 +1,95 @@
 # VisionPick project status
 
 - **Project:** VisionPick — Autonomous Camera-Guided Robotic Manipulation.
-- **Checkpoint date:** 2026-11-02, Europe/Prague.
-- **Verified milestone:** Milestone 1 COMPLETE locally. Remote publication pending.
-- **Previous externally verified checkpoint:** Milestone 0 on 2026-10-31.
-- **Source revision:** no previous verified pushed commit. This document belongs
-  to the initial local foundation commit; use `git rev-parse HEAD` for its exact
-  resulting SHA, reported after commit creation. No self-referential SHA is invented.
-- **Canonical workspace:** `~/visionpick_ws` in WSL Ubuntu-24.04.
+- **Checkpoint date:** 2026-11-08, Europe/Prague.
+- **Verified milestone:** Milestone 1 COMPLETE locally; publication pending.
+- **Latest independent external checkpoint supplied by the owner:** November 7
+  repository lookup returned 404/inaccessible. Local work was inspected and preserved.
+- **Existing source preserved:** foundation commit
+  `835645eabab6675aa453f36f920804aca19742ff`, plus all ignored raw logs.
+- **Current source:** the upcoming recheck commit includes the acceleration check
+  and new evidence; its resulting SHA is reported after committing.
+- **Workspace:** `~/visionpick_ws` in WSL distribution `Ubuntu-24.04`.
 - **Intended remote:** `https://github.com/jalal006/visionpick-robotic-manipulation.git`.
 
-## Completed and verified
+## Current verification
 
-Official apt-installed UR5e simulation in Gazebo Harmonic, ROS 2 Jazzy feedback,
-active controllers, live TF/clock, simulation time configuration, measured
-controller A/B/home motion, automatic MoveIt A/B/home execution, one actual RViz
-Plan & Execute, conservative return-home utility, passive GUI recorder, audit and
-idempotent setup scripts, pure-logic tests, documentation and compact real evidence.
+A fresh official UR5e launch passed the ROS interface audit, direct A/B/home motion,
+automatic MoveIt A/B/home execution, an actual RViz **Plan & Execute**, and a final
+measured return home. **21 pure-logic tests passed**, including six acceleration
+checks. Python compilation and shell syntax checks passed.
 
-Verification commands (after `source scripts/common.sh`):
+The new guard reads each joint's live MoveIt acceleration setting (5 rad/s² here),
+checks peak quintic acceleration, and caps direct motion at
+min(0.1 rad/s², 10% of the configured limit). Targets and durations are unchanged.
+No dependency installation or source build was needed.
 
-```bash
+Worst automatic MoveIt error: **0.004996993 rad** (rounded upward).
+GUI nominal-target maximum error: **0.008326365 rad** (rounded upward).
+Final home maximum error: **1.59355e-12 rad**. All are below **0.02 rad**.
+Gazebo shoulder-link yaw independently confirmed the GUI movement and return.
+
+Details: [November 8 recheck](MILESTONE_01_RECHECK_2026-11-08.md) and
+[evidence JSON](evidence/milestone01-recheck-2026-11-08.json).
+The original [November 2 verification](MILESTONE_01_VERIFICATION.md) is preserved.
+
+## Reproduce
+
+In **Windows PowerShell**:
+
+~~~powershell
+wsl -d Ubuntu-24.04 --cd '~'
+~~~
+
+In the Ubuntu-24.04 shell it opens:
+
+~~~bash
+cd ~/visionpick_ws
+source scripts/common.sh
 bash scripts/check_environment.sh
 bash scripts/setup_dependencies.sh
 python3 -m pytest -q
-bash scripts/launch_simulation.sh                 # terminal 1
-bash scripts/check_ros_interfaces.sh             # terminal 2
+bash scripts/launch_simulation.sh
+~~~
+
+Leave that terminal open. Open a second PowerShell, enter Ubuntu-24.04 with the
+same wsl command, then run this complete block:
+
+~~~bash
+cd ~/visionpick_ws
+source scripts/common.sh
+bash scripts/check_ros_interfaces.sh
 python3 scripts/verify_motion.py --mode direct
 python3 scripts/verify_motion.py --mode moveit
 python3 scripts/verify_motion.py --mode direct --return-home
-```
+~~~
 
-**Test outcomes:** 15 pure-logic tests passed; Python and shell syntax checks passed.
-Direct and MoveIt full sequences passed twice across separate launches. Worst
-automatic MoveIt final error was 0.00491170 rad (rounded upward) against 0.02 rad.
-One GUI execution passed; the second attempted GUI observer timed out without a
-GUI execution and is not counted. Final direct return-home max error:
-1.7164e-13 rad. Gazebo shoulder-link state independently confirmed movement.
+The plain Ubuntu app is a separate distribution. From its Bash terminal use
+`wsl.exe -d Ubuntu-24.04 --cd '~'`. Every new terminal needs the project
+directory and environment sourcing.
 
-See [verification](MILESTONE_01_VERIFICATION.md) for all observed vectors and exact
-GUI steps. Raw logs/screenshots are local and ignored; compact evidence is tracked.
+## Publication
 
-## Limitations and blockers
+GitHub browser authentication was completed by the owner and verified as
+jalal006. Authenticated lookup confirmed the intended repository was absent.
+No credential or token is stored in this repository. Publication and the remote
+SHA will be verified after the reviewed commit is created.
 
-Software rendering; upstream URDF/SRDF name and sensor warnings; Gazebo
-mesh-collision warnings; unverified physical contacts; upstream shutdown
-segfault/leftover-process behavior. Fresh restart and runtime motion passed after
-targeted cleanup. No camera, gripper, perception or autonomous sorting yet.
+## Limitations and next work
 
-GitHub connector metadata lookup returned **404** for the intended repository.
-The connector can identify the account, but that does not establish repository
-existence/access or local Git authentication. GitHub CLI reports no login.
-No repository creation or successful push is claimed.
+WSLg uses llvmpipe software graphics. Known upstream robot-name, missing perception
+plugin and Gazebo mesh-collision warnings remain. Physical contact fidelity,
+camera, gripper, perception, sorting and 30-scene benchmarks remain unverified.
 
-## Publish the already verified local commit
+The November 2 shutdown test exposed a move_group exit-time segfault and leftover
+Gazebo processes. That historical issue is documented, not claimed fixed.
+Today's execution checks showed no controller crash. The simulation was left
+running at home after verification.
 
-In Ubuntu-24.04:
+Milestone 1 is the only completed implementation milestone. Stop here this week.
+Milestone 2 (workcell/gripper/objects) is next, after publication and review of
+contact/shutdown limitations.
 
-```bash
-cd ~/visionpick_ws
-git status --short
-git log -1 --oneline
-git remote -v
-gh auth login --hostname github.com --git-protocol https --web
-gh auth setup-git
-gh repo view jalal006/visionpick-robotic-manipulation
-```
-
-If authenticated inspection confirms the intended repository truly does not exist,
-create exactly that repository (the example uses public portfolio visibility):
-
-```bash
-gh repo create jalal006/visionpick-robotic-manipulation --public
-git push -u origin main
-git rev-parse HEAD
-git ls-remote origin refs/heads/main
-```
-
-The two SHAs must match. If a remote already exists, inspect its branches/history
-with `git fetch origin` before pushing; do not overwrite it or force-push.
-SSH authentication or a suitably scoped PAT via the credential manager are
-alternatives. Never use or send a GitHub account password.
-
-## Next milestone and CV readiness
-
-Next required implementation milestone: **Milestone 2**, workcell/gripper/object
-foundation, after publishing this checkpoint and reviewing shutdown/contact issues.
-Milestones 2–8 remain planned.
-
-CV-ready wording is limited to the foundation: “Built and verified a simulated
-UR5e ROS 2 Jazzy/Gazebo Harmonic workcell with MoveIt trajectory execution and
-joint-feedback validation.” Do not claim autonomous vision, grasping, sorting,
-physical hardware performance, or a published GitHub demo yet.
+CV wording can describe a **simulated UR5e workcell with ROS 2 Jazzy, Gazebo Harmonic,
+MoveIt trajectory execution and measured joint-feedback validation**. Autonomous
+vision, grasping, sorting and physical-robot performance remain future work.

@@ -44,6 +44,12 @@ order and is explicitly remapped by name.
 
 `verify_motion.py` has two execution modes. Direct mode sends bounded quintic joint
 segments; MoveIt mode requests planning and execution with `plan_only=False`.
+The direct verifier reads the live
+`robot_description_planning.joint_limits.<joint>.max_acceleration` parameters
+from move_group and bounds peak quintic acceleration by
+`10/sqrt(3) * abs(delta) / duration²`, no greater than
+`min(0.1, 0.1 * configured_limit)` rad/s². These are configured planning limits,
+not manufacturer torque-derived physical guarantees.
 Both sample joint feedback independently, reject stale/nonfinite data, require
 movement and final settling, log timestamps and errors, and return nonzero on
 failure. Direct motion also samples 21 intermediate states through MoveIt's

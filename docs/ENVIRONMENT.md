@@ -1,4 +1,34 @@
-# Environment audit — 2026-11-02 (Europe/Prague)
+# Environment audits
+
+## Rechecked 2026-11-08 (Europe/Prague)
+
+The same Ubuntu-24.04 workspace and binary versions listed below were verified
+again: Ubuntu 24.04.5, kernel 6.18.54.1-microsoft-standard-WSL2, Jazzy,
+Gazebo 8.15.0 and Python 3.12.3. Current nproc is **4** (previously 16);
+about 15 GiB RAM, 4 GiB swap and 949 GiB free disk were observed.
+No CPU, graphics or global ROS settings were changed by this recheck.
+
+GLX still reports Mesa 25.2.8 llvmpipe without hardware acceleration.
+WSLg displayed RViz, and the official GUI Plan & Execute passed.
+All required packages were installed already; setup made no apt changes.
+Official launch arguments and live controller/MoveIt parameters were inspected.
+MoveIt acceleration settings are 5 rad/s²; the verifier explicitly caps peak
+direct acceleration at min(0.1 rad/s², 10% of the configured limit).
+
+Browser GitHub authentication is now available as the intended owner. November 2
+authentication and shutdown observations below are historical.
+
+References revisited November 8:
+[MoveIt binaries](https://moveit.ai/install-moveit2/binary/),
+[Jazzy gz_ros2_control](https://control.ros.org/jazzy/doc/gz_ros2_control/doc/index.html),
+[official UR simulation](https://github.com/UniversalRobots/Universal_Robots_ROS2_GZ_Simulation),
+[UR documentation](https://docs.universal-robots.com/),
+[Gazebo Harmonic](https://gazebosim.org/docs/harmonic/).
+Installed versions, not moving upstream branches, define this run.
+
+Current results: [November 8 recheck](MILESTONE_01_RECHECK_2026-11-08.md).
+
+## Historical audit — 2026-11-02
 
 ## Observed baseline and changes
 

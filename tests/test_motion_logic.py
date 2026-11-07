@@ -48,3 +48,19 @@ def test_non_simulation_hardware_rejected(plugin):
 def test_effective_soft_limits_used():
     xml = '<robot><ros2_control><hardware><plugin>gz_ros2_control/GazeboSimSystem</plugin></hardware></ros2_control><joint name="j" type="revolute"><limit lower="-3" upper="3" velocity="2"/><safety_controller soft_lower_limit="-2.8" soft_upper_limit="2.8"/></joint></robot>'
     assert limits_from_urdf(xml, ["j"]) == {"j":(-2.8,2.8,2.)}
+
+
+def test_small_segment_respects_configured_acceleration():
+    from motion_logic import validate_acceleration
+    validate_acceleration([0,0], [.2,.16], JOINTS, dict.fromkeys(JOINTS, 5.), 6.)
+
+@pytest.mark.parametrize("limit", [0., -1., float("nan"), float("inf")])
+def test_invalid_acceleration_limit_rejected(limit):
+    from motion_logic import validate_acceleration
+    with pytest.raises(ValueError):
+        validate_acceleration([0,0], [.2,.16], JOINTS, dict.fromkeys(JOINTS, limit), 6.)
+
+def test_lower_configured_acceleration_limit_is_respected():
+    from motion_logic import validate_acceleration
+    with pytest.raises(ValueError, match="Acceleration too high"):
+        validate_acceleration([0,0], [.2,.16], JOINTS, dict.fromkeys(JOINTS, .1), 6.)

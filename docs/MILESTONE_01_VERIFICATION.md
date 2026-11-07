@@ -1,5 +1,7 @@
 # Milestone 1 verification — 2026-11-02
 
+Latest: [November 8 recheck](MILESTONE_01_RECHECK_2026-11-08.md). The following is the preserved November 2 record.
+
 **Result: COMPLETE locally; GitHub publication not verified.**
 The acceptance gate was satisfied with the real Gazebo UR5e and a working MoveIt
 execution path. One RViz GUI Plan & Execute was observed. Shutdown reliability
