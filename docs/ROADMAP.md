@@ -1,29 +1,27 @@
 # VisionPick roadmap
 
-Only Milestone 1 is implemented. Each later milestone needs its own acceptance
-evidence; this list is a plan, not a capability claim.
+Checkpoint: 2026-11-14. Milestones 1 and 2 are verified locally. Publication of
+this checkpoint is reported after committing and matching remote main.
 
-1. **Simulation foundation:** Ubuntu 24.04, Jazzy, Harmonic, UR5e, controllers,
-   A/B/home motion with measured feedback, MoveIt and RViz execution.
-2. **Manipulation workcell:** add a simulation-compatible gripper, table, blocks,
-   collision geometry and repeatable reset. Resolve/validate physical contact
-   geometry before relying on Gazebo contacts.
-3. **Camera and geometry:** add a simulated camera, verify intrinsics/extrinsics,
-   image transport and TF2 transformations into the robot base frame.
-4. **Perception:** detect colored blocks with OpenCV; quantify pixel/pose error
-   against simulator ground truth over randomized placements.
-5. **Grasp and place:** produce feasible grasp poses, approach/retreat motions,
-   collision-aware plans and verified simulated attachment/release.
-6. **Autonomous sorting:** orchestrate detection, planning, grasping, sorting and
-   visual placement verification in an explicit task state machine.
-7. **Failure recovery:** detect misses, stale images, planning failures and
-   placement errors; retry within bounded policies and record reasons.
-8. **Benchmark and release:** at least 30 seeded randomized scenes, success/time/error metrics, repeatable
-   results, concise demo, installation guide and honestly scoped portfolio claims.
+1. **Simulation foundation — COMPLETE:** official UR5e, Jazzy, Harmonic,
+   controllers, measured A/B/home motion, MoveIt and RViz execution.
+2. **Tabletop workcell — COMPLETE:** canonical table/fixture geometry shared by
+   Gazebo and MoveIt, safe trajectory execution, measured settling, blocked-goal
+   rejection with a successful planning-only control case. Gripper research only.
+3. **Camera and geometry — PLANNED:** simulated overhead RGB camera,
+   intrinsics/extrinsics, image transport, calibration and TF2 base-frame transforms.
+4. **Perception — PLANNED:** OpenCV colored-block detection, randomized positions
+   and orientations, pixel/pose errors against simulator ground truth.
+5. **Gripper and grasp/place — PLANNED:** validate a simulated two-finger gripper,
+   objects, contact or an explicitly validated attachment constraint, approach,
+   retreat, collision-aware transport, release and placement checks.
+6. **Autonomous sorting — PLANNED:** explicit task state machine linking perception,
+   planning, grasping and visual placement verification.
+7. **Failure recovery — PLANNED:** bounded retries for stale images, misses,
+   failed plans and incorrect placement, with recorded outcomes.
+8. **Benchmark and release — PLANNED:** at least 30 seeded randomized scenes,
+   success/time/error metrics, reproducible demo and honestly scoped portfolio claims.
 
-Milestone 0 means no verified implementation. The 2026-10-31 external check was
-Milestone 0; 2026-11-02 establishes local Milestone 1 evidence. Remote publication
-remains a separate unresolved checkpoint.
-
-Next: publish the verified foundation, stabilize upstream shutdown behavior, then
-begin Milestone 2. Do not advertise autonomous camera-guided sorting yet.
+The owner's November 14 scope moves gripper/object integration out of Milestone 2.
+The next dependency is camera geometry on the verified workcell. No Milestone 3
+implementation is included. Camera-guided sorting remains the end goal.

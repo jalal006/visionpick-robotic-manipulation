@@ -5,7 +5,12 @@ placed and rotated colored blocks using a rendered overhead camera, estimate gra
 collision-aware movements, sort objects, verify placement, recover from failures,
 and benchmark at least 30 seeded randomized scenes.
 
-**Checkpoint, 2026-11-08: Milestone 1 verified locally.** Real Gazebo joint motion,
+**Milestone 2 update, 2026-11-14:** a static worktable and fixture now share one
+geometry configuration between Gazebo and MoveIt. **Milestone 2 is COMPLETE:** real
+collision-aware execution, measured settling, blocked-goal rejection and fresh
+headless/GUI launches passed. See [Milestone 2 verification](docs/MILESTONE_02_VERIFICATION.md).
+
+**Preserved checkpoint, 2026-11-08: Milestone 1 verified locally.** Real Gazebo joint motion,
 A/B/home feedback verification, automatic MoveIt planning/execution, and one actual
 RViz MotionPlanning **Plan & Execute** operation have passed. The checkpoint is
 published on [GitHub](https://github.com/jalal006/visionpick-robotic-manipulation). Read
@@ -14,6 +19,54 @@ published on [GitHub](https://github.com/jalal006/visionpick-robotic-manipulatio
 
 This is independent of ReConFactory. No camera, gripper, perception, AI, sorting,
 or custom ROS package is implemented yet.
+
+## Run Milestone 2
+
+In **Windows PowerShell**:
+
+```powershell
+wsl -d Ubuntu-24.04 -u ahadd --cd /home/ahadd/visionpick_ws
+```
+
+From the plain Ubuntu app (`jalal@JalalLaptop`), use
+`wsl.exe -d Ubuntu-24.04 -u ahadd --cd /home/ahadd/visionpick_ws` instead.
+In the resulting `ahadd` terminal:
+
+```bash
+source scripts/common.sh
+python3 -m pytest -q
+bash scripts/launch_workcell.sh
+```
+
+Wait for **SCENE_READY**. Open a second terminal, enter the same WSL workspace,
+then run:
+
+```bash
+source scripts/common.sh
+python3 scripts/verify_workcell.py
+```
+
+Expected: `negative_test`, three `executed` records (safe A, safe B, home), then
+`PASS`. Watch the normal-colored robot during execution; orange is the RViz goal
+overlay. These movements are larger than the Milestone 1 smoke motions.
+Do not click Plan/Execute or run another motion client during verification:
+the negative control temporarily removes only the fixture from MoveIt, never
+executes that control plan, and restores the fixture before any motion.
+
+Use `bash scripts/launch_workcell.sh gui:=false` to run the same real simulation
+without windows. **Do not run both milestone launchers together.** Both share a
+lock; the new launcher also rejects an existing world in the Gazebo partition.
+Stop with **Ctrl+C in the launch terminal**. Its supervisor cleans up only its own
+launch session; the upstream shutdown crash is not claimed fixed.
+
+The worktable is a solid 0.8 × 1.2 × 0.3 m box beside the floor-mounted robot.
+A 0.18 × 0.24 × 0.6 m fixture stands on it. Coordinates, frames and targets are in
+[config/workcell.json](config/workcell.json); `world` and `base_link` coincide.
+Readback verifies actual collision geometry, not just colored markers.
+
+A failed verifier exits nonzero and records the reason without blind recovery.
+After inspecting a failure, stop and relaunch to recreate the world and home pose.
+Milestone 1 commands below remain available and also pass in the workcell from home.
 
 ## Run Milestone 1
 
@@ -105,10 +158,10 @@ For the RViz procedure and passive evidence recorder, see
 | Milestone | Intended outcome | State |
 |---|---|---|
 | 1 | Reproducible UR5e + Gazebo + MoveIt, measured A/B/home | Locally verified |
-| 2 | Manipulation workcell, simulated gripper and objects | Planned |
+| 2 | Table, fixture, collision-aware execution and blocked-goal rejection | Locally verified |
 | 3 | Simulated camera, calibration and TF2 geometry | Planned |
 | 4 | OpenCV colored-block detection and pose estimation | Planned |
-| 5 | Collision-aware grasp and place planning | Planned |
+| 5 | Simulated gripper, objects, collision-aware grasp and place | Planned |
 | 6 | Autonomous sorting and placement verification | Planned |
 | 7 | Failure detection, recovery and randomized scenarios | Planned |
 | 8 | Repeatable benchmarks, demo and portfolio release | Planned |

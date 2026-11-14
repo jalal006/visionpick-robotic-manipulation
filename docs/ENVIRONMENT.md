@@ -1,5 +1,33 @@
 # Environment audits
 
+## Milestone 2 audit — 2026-11-14 (Europe/Prague)
+
+The canonical Ubuntu-24.04 workspace is `/home/ahadd/visionpick_ws`, user `ahadd`.
+Local and remote main initially matched `3586f036b765835145b11c70b849123a913b8455`;
+the working tree was clean and no robot stack was running. Domain 73 and partition
+`visionpick_m1` are unchanged. Installed Jazzy/Harmonic binaries are reused, with
+no dependency installation, source rebuild, global ROS, WSL or graphics changes.
+The already installed `gz.transport13` and `gz.msgs10` Python bindings work after
+sourcing `scripts/common.sh`. No pip dependency or colcon package was added.
+
+The headless option removes windows only; physics and real controller feedback
+remain active. Historical audits below retain their original observations and do
+not describe the current authentication or running-process state.
+
+### Mesh and contact warnings investigated
+
+The DART debug messages about initial SDF mesh construction describe an intermediate
+stage. The installed-version [Gazebo Sim 8.15.0 source](https://github.com/gazebosim/gz-sim/blob/gz-sim8_8.15.0/src/systems/physics/Physics.cc)
+subsequently loads and attaches mesh collisions with `AttachMeshShape`; the
+[upstream issue](https://github.com/gazebosim/gz-physics/issues/985) explains this fallback.
+Workcell objects use boxes. Official UR robot meshes are retained, tested against
+MoveIt collision queries, and observed through workcell contact topics during motion.
+No warning is suppressed. This does not establish grasp friction/contact fidelity.
+
+The [Harmonic Contact system](https://github.com/gazebosim/gz-sim/blob/gz-sim8_8.15.0/src/systems/contact/Contact.cc)
+publishes only nonempty contact sets. The verifier checks publisher presence and
+clock liveness separately; silence is not treated as a sensor heartbeat.
+
 ## Rechecked 2026-11-08 (Europe/Prague)
 
 The same Ubuntu-24.04 workspace and binary versions listed below were verified

@@ -1,0 +1,1173 @@
+{
+  "schema_version": 1,
+  "utc": "2026-11-14T10:42:18.975488+00:00",
+  "status": "PASS",
+  "failure": null,
+  "config": {
+    "schema_version": 1,
+    "world": "visionpick_workcell",
+    "frame": "world",
+    "base_frame": "base_link",
+    "base_pose": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "objects": [
+      {
+        "id": "visionpick_table",
+        "dimensions": [
+          0.8,
+          1.2,
+          0.3
+        ],
+        "pose": [
+          0.7,
+          0,
+          0.15,
+          0,
+          0,
+          0
+        ],
+        "color": [
+          0.35,
+          0.42,
+          0.48,
+          1
+        ]
+      },
+      {
+        "id": "visionpick_fixture",
+        "dimensions": [
+          0.18,
+          0.24,
+          0.6
+        ],
+        "pose": [
+          0.6,
+          0.13,
+          0.6,
+          0,
+          0,
+          0
+        ],
+        "color": [
+          0.9,
+          0.55,
+          0.12,
+          1
+        ]
+      }
+    ],
+    "joint_names": [
+      "shoulder_pan_joint",
+      "shoulder_lift_joint",
+      "elbow_joint",
+      "wrist_1_joint",
+      "wrist_2_joint",
+      "wrist_3_joint"
+    ],
+    "targets": {
+      "home": [
+        0,
+        -1.57,
+        0,
+        -1.57,
+        0,
+        0
+      ],
+      "safe_a": [
+        0.5,
+        -1.1,
+        0.3,
+        -1.57,
+        0,
+        0
+      ],
+      "safe_b": [
+        -0.6,
+        -1.1,
+        0.3,
+        -1.57,
+        0,
+        0
+      ],
+      "blocked": [
+        0,
+        -0.8,
+        0,
+        -1.57,
+        0,
+        0
+      ]
+    }
+  },
+  "events": [
+    {
+      "event": "ready",
+      "mode": "moveit",
+      "controller": "scaled_joint_trajectory_controller",
+      "controller_type": "ur_controllers/ScaledJointTrajectoryController",
+      "action": "/scaled_joint_trajectory_controller/follow_joint_trajectory",
+      "joints": [
+        "shoulder_pan_joint",
+        "shoulder_lift_joint",
+        "elbow_joint",
+        "wrist_1_joint",
+        "wrist_2_joint",
+        "wrist_3_joint"
+      ],
+      "home": [
+        6.782887455067724e-22,
+        -1.5699999999999965,
+        3.0615318177167213e-15,
+        -1.56999999999999,
+        -5.068582093332583e-15,
+        1.4496692729242912e-21
+      ],
+      "effective_limits": {
+        "shoulder_pan_joint": [
+          -6.133185307179586,
+          6.133185307179586,
+          3.141592653589793
+        ],
+        "shoulder_lift_joint": [
+          -6.133185307179586,
+          6.133185307179586,
+          3.141592653589793
+        ],
+        "elbow_joint": [
+          -2.991592653589793,
+          2.991592653589793,
+          3.141592653589793
+        ],
+        "wrist_1_joint": [
+          -6.133185307179586,
+          6.133185307179586,
+          3.141592653589793
+        ],
+        "wrist_2_joint": [
+          -6.133185307179586,
+          6.133185307179586,
+          3.141592653589793
+        ],
+        "wrist_3_joint": [
+          -6.133185307179586,
+          6.133185307179586,
+          3.141592653589793
+        ]
+      },
+      "tolerance_rad": 0.02,
+      "duration_s": 6.0,
+      "configured_acceleration_limits": {
+        "shoulder_pan_joint": 5.0,
+        "shoulder_lift_joint": 5.0,
+        "elbow_joint": 5.0,
+        "wrist_1_joint": 5.0,
+        "wrist_2_joint": 5.0,
+        "wrist_3_joint": 5.0
+      },
+      "verifier_acceleration_cap_rad_s2": 0.1
+    },
+    {
+      "event": "model",
+      "group": "ur_manipulator",
+      "frame": "world",
+      "tip": "tool0",
+      "base_frame": "base_link",
+      "base_position": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "event": "gazebo_geometry",
+      "objects": [
+        {
+          "id": "visionpick_table",
+          "frame": "world",
+          "type": 1,
+          "dimensions": [
+            0.8,
+            1.2,
+            0.3
+          ],
+          "position": [
+            0.7,
+            0.0,
+            0.15
+          ],
+          "orientation": [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        },
+        {
+          "id": "visionpick_fixture",
+          "frame": "world",
+          "type": 1,
+          "dimensions": [
+            0.18,
+            0.24,
+            0.6
+          ],
+          "position": [
+            0.6,
+            0.13,
+            0.6
+          ],
+          "orientation": [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        }
+      ]
+    },
+    {
+      "event": "scene_verified",
+      "objects": [
+        {
+          "id": "visionpick_fixture",
+          "frame": "world",
+          "type": 1,
+          "dimensions": [
+            0.18,
+            0.24,
+            0.6
+          ],
+          "position": [
+            0.6,
+            0.13,
+            0.6
+          ],
+          "orientation": [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        },
+        {
+          "id": "visionpick_table",
+          "frame": "world",
+          "type": 1,
+          "dimensions": [
+            0.8,
+            1.2,
+            0.3
+          ],
+          "position": [
+            0.7,
+            0.0,
+            0.15
+          ],
+          "orientation": [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        }
+      ],
+      "idempotent": true
+    },
+    {
+      "event": "target_validity",
+      "label": "home",
+      "target": [
+        0.0,
+        -1.57,
+        0.0,
+        -1.57,
+        0.0,
+        0.0
+      ],
+      "valid": true,
+      "contacts": [],
+      "tool_position": [
+        0.0008095456837849882,
+        0.2329000001676105,
+        1.0793996143973623
+      ]
+    },
+    {
+      "event": "target_validity",
+      "label": "safe_a",
+      "target": [
+        0.5,
+        -1.1,
+        0.3,
+        -1.57,
+        0.0,
+        0.0
+      ],
+      "valid": true,
+      "contacts": [],
+      "tool_position": [
+        0.3583270202410041,
+        0.4611430791575325,
+        0.8940752522406028
+      ]
+    },
+    {
+      "event": "target_validity",
+      "label": "safe_b",
+      "target": [
+        -0.6,
+        -1.1,
+        0.3,
+        -1.57,
+        0.0,
+        0.0
+      ],
+      "valid": true,
+      "contacts": [],
+      "tool_position": [
+        0.5735098527698899,
+        -0.11017096561956101,
+        0.8940752522406028
+      ]
+    },
+    {
+      "event": "target_validity",
+      "label": "blocked",
+      "target": [
+        0.0,
+        -0.8,
+        0.0,
+        -1.57,
+        0.0,
+        0.0
+      ],
+      "valid": false,
+      "contacts": [
+        {
+          "body_1": "forearm_link",
+          "body_2": "visionpick_fixture",
+          "depth": 0.03867898487859689
+        },
+        {
+          "body_1": "wrist_1_link",
+          "body_2": "visionpick_fixture",
+          "depth": 0.029531575608426897
+        },
+        {
+          "body_1": "wrist_2_link",
+          "body_2": "visionpick_fixture",
+          "depth": 0.09347320712508544
+        },
+        {
+          "body_1": "wrist_3_link",
+          "body_2": "visionpick_fixture",
+          "depth": 0.09894974400296574
+        }
+      ],
+      "tool_position": [
+        0.6388673133830193,
+        0.2329000001144453,
+        0.8201884628467897
+      ]
+    },
+    {
+      "event": "plan",
+      "label": "blocked_with_fixture",
+      "start": [
+        6.37631164038566e-22,
+        -1.5699999999999965,
+        3.0615319396894924e-15,
+        -1.56999999999999,
+        -5.0685818493871194e-15,
+        1.5309844358606917e-21
+      ],
+      "target": [
+        0.0,
+        -0.8,
+        0.0,
+        -1.57,
+        0.0,
+        0.0
+      ],
+      "plan_only": true,
+      "status": 6,
+      "error_code": 99999,
+      "points": 0,
+      "message": "",
+      "source": "",
+      "planning_seconds": 0.0,
+      "wall_seconds": 0.03279613800009429
+    },
+    {
+      "event": "plan",
+      "label": "same_target_without_fixture",
+      "start": [
+        7.053937998189101e-22,
+        -1.5699999999999965,
+        3.061531749954114e-15,
+        -1.56999999999999,
+        -5.068582079780084e-15,
+        1.3683541099878649e-21
+      ],
+      "target": [
+        0.0,
+        -0.8,
+        0.0,
+        -1.57,
+        0.0,
+        0.0
+      ],
+      "plan_only": true,
+      "status": 4,
+      "error_code": 1,
+      "points": 57,
+      "message": "",
+      "source": "",
+      "planning_seconds": 0.014854184,
+      "wall_seconds": 0.02743951599995853
+    },
+    {
+      "event": "negative_test",
+      "target": [
+        0.0,
+        -0.8,
+        0.0,
+        -1.57,
+        0.0,
+        0.0
+      ],
+      "with_fixture": {
+        "valid": false,
+        "contacts": [
+          {
+            "body_1": "forearm_link",
+            "body_2": "visionpick_fixture",
+            "depth": 0.03867898487859689
+          },
+          {
+            "body_1": "wrist_1_link",
+            "body_2": "visionpick_fixture",
+            "depth": 0.029531575608426897
+          },
+          {
+            "body_1": "wrist_2_link",
+            "body_2": "visionpick_fixture",
+            "depth": 0.09347320712508544
+          },
+          {
+            "body_1": "wrist_3_link",
+            "body_2": "visionpick_fixture",
+            "depth": 0.09894974400296574
+          }
+        ]
+      },
+      "without_fixture": {
+        "valid": true,
+        "contacts": []
+      },
+      "fixture_restored": true,
+      "control_plan_executed": false
+    },
+    {
+      "event": "plan",
+      "label": "safe_a",
+      "start": [
+        6.511836911946348e-22,
+        -1.5699999999999965,
+        3.0615317499541344e-15,
+        -1.56999999999999,
+        -5.0685821610952675e-15,
+        1.4225642186121302e-21
+      ],
+      "target": [
+        0.5,
+        -1.1,
+        0.3,
+        -1.57,
+        0.0,
+        0.0
+      ],
+      "plan_only": true,
+      "status": 4,
+      "error_code": 1,
+      "points": 40,
+      "message": "",
+      "source": "",
+      "planning_seconds": 0.004268223,
+      "wall_seconds": 0.016212971999948422
+    },
+    {
+      "event": "executed",
+      "label": "safe_a",
+      "requested": [
+        0.5,
+        -1.1,
+        0.3,
+        -1.57,
+        0.0,
+        0.0
+      ],
+      "planned_endpoint": [
+        0.500738366695121,
+        -1.1005981303635053,
+        0.2992840689369477,
+        -1.5691454309322872,
+        0.00023170836735516794,
+        -4.490482248365878e-05
+      ],
+      "measured": [
+        0.5007383664041405,
+        -1.1005981306355526,
+        0.29928406876503244,
+        -1.5691454309293735,
+        0.00023170836509175003,
+        -4.4904822457564336e-05
+      ],
+      "max_error": 3.233117107370731e-10,
+      "excursion": [
+        0.5007383663718092,
+        0.4694018693341362,
+        0.2992840687457055,
+        0.0008545690705614728,
+        0.00023170836508185755,
+        4.490482245466502e-05
+      ],
+      "feedback_samples": 2011,
+      "trajectory_checks": 110,
+      "measured_state_checks": 51,
+      "planned_duration_seconds": 3.816118153,
+      "execution_wall_seconds": 4.328037173999974,
+      "execution_sim_seconds": 4.073,
+      "status": 4,
+      "error_code": 1,
+      "contact_messages": {
+        "visionpick_table": 0,
+        "visionpick_fixture": 0
+      },
+      "robot_workcell_contacts": 0
+    },
+    {
+      "event": "straight_segment_diagnostic",
+      "invalid_samples": [
+        {
+          "fraction": 0.2,
+          "valid": false,
+          "contacts": [
+            {
+              "body_1": "wrist_2_link",
+              "body_2": "visionpick_fixture",
+              "depth": 0.0010137039833092443
+            }
+          ]
+        },
+        {
+          "fraction": 0.25,
+          "valid": false,
+          "contacts": [
+            {
+              "body_1": "wrist_2_link",
+              "body_2": "visionpick_fixture",
+              "depth": 0.00548319941376163
+            }
+          ]
+        },
+        {
+          "fraction": 0.3,
+          "valid": false,
+          "contacts": [
+            {
+              "body_1": "wrist_2_link",
+              "body_2": "visionpick_fixture",
+              "depth": 0.0015823563852823685
+            }
+          ]
+        },
+        {
+          "fraction": 0.35,
+          "valid": false,
+          "contacts": [
+            {
+              "body_1": "wrist_1_link",
+              "body_2": "visionpick_fixture",
+              "depth": 0.0007680866609744985
+            },
+            {
+              "body_1": "wrist_2_link",
+              "body_2": "visionpick_fixture",
+              "depth": 0.004715147473919434
+            },
+            {
+              "body_1": "wrist_3_link",
+              "body_2": "visionpick_fixture",
+              "depth": 0.0024195337438800654
+            }
+          ]
+        },
+        {
+          "fraction": 0.4,
+          "valid": false,
+          "contacts": [
+            {
+              "body_1": "wrist_1_link",
+              "body_2": "visionpick_fixture",
+              "depth": 0.010553739131963447
+            },
+            {
+              "body_1": "wrist_2_link",
+              "body_2": "visionpick_fixture",
+              "depth": 0.001840862142050148
+            },
+            {
+              "body_1": "wrist_3_link",
+              "body_2": "visionpick_fixture",
+              "depth": 0.011237078181598987
+            }
+          ]
+        },
+        {
+          "fraction": 0.45,
+          "valid": false,
+          "contacts": [
+            {
+              "body_1": "wrist_1_link",
+              "body_2": "visionpick_fixture",
+              "depth": 0.00040327488391045385
+            },
+            {
+              "body_1": "wrist_2_link",
+              "body_2": "visionpick_fixture",
+              "depth": 0.002185001866205738
+            },
+            {
+              "body_1": "wrist_3_link",
+              "body_2": "visionpick_fixture",
+              "depth": 0.026392964034886206
+            }
+          ]
+        },
+        {
+          "fraction": 0.5,
+          "valid": false,
+          "contacts": [
+            {
+              "body_1": "wrist_1_link",
+              "body_2": "visionpick_fixture",
+              "depth": 0.0051573874671839715
+            },
+            {
+              "body_1": "wrist_2_link",
+              "body_2": "visionpick_fixture",
+              "depth": 0.00011159620664680237
+            },
+            {
+              "body_1": "wrist_3_link",
+              "body_2": "visionpick_fixture",
+              "depth": 0.0012769658619704582
+            }
+          ]
+        },
+        {
+          "fraction": 0.55,
+          "valid": false,
+          "contacts": [
+            {
+              "body_1": "wrist_1_link",
+              "body_2": "visionpick_fixture",
+              "depth": 0.0012247185076637024
+            },
+            {
+              "body_1": "wrist_2_link",
+              "body_2": "visionpick_fixture",
+              "depth": 0.002384832363396594
+            },
+            {
+              "body_1": "wrist_3_link",
+              "body_2": "visionpick_fixture",
+              "depth": 0.024838666670245257
+            }
+          ]
+        },
+        {
+          "fraction": 0.6,
+          "valid": false,
+          "contacts": [
+            {
+              "body_1": "wrist_1_link",
+              "body_2": "visionpick_fixture",
+              "depth": 0.0028096638267778307
+            },
+            {
+              "body_1": "wrist_2_link",
+              "body_2": "visionpick_fixture",
+              "depth": 0.0009851367448142634
+            },
+            {
+              "body_1": "wrist_3_link",
+              "body_2": "visionpick_fixture",
+              "depth": 0.02486358114906373
+            }
+          ]
+        },
+        {
+          "fraction": 0.65,
+          "valid": false,
+          "contacts": [
+            {
+              "body_1": "wrist_1_link",
+              "body_2": "visionpick_fixture",
+              "depth": 0.0054064580871527185
+            },
+            {
+              "body_1": "wrist_2_link",
+              "body_2": "visionpick_fixture",
+              "depth": 0.001589250222985887
+            },
+            {
+              "body_1": "wrist_3_link",
+              "body_2": "visionpick_fixture",
+              "depth": 0.024888497228897855
+            }
+          ]
+        },
+        {
+          "fraction": 0.7,
+          "valid": false,
+          "contacts": [
+            {
+              "body_1": "wrist_1_link",
+              "body_2": "visionpick_fixture",
+              "depth": 0.0014371249938254227
+            },
+            {
+              "body_1": "wrist_2_link",
+              "body_2": "visionpick_fixture",
+              "depth": 0.0012669142846467056
+            },
+            {
+              "body_1": "wrist_3_link",
+              "body_2": "visionpick_fixture",
+              "depth": 0.024913414909664144
+            }
+          ]
+        },
+        {
+          "fraction": 0.75,
+          "valid": false,
+          "contacts": [
+            {
+              "body_1": "wrist_2_link",
+              "body_2": "visionpick_fixture",
+              "depth": 0.0009369741583967648
+            },
+            {
+              "body_1": "wrist_3_link",
+              "body_2": "visionpick_fixture",
+              "depth": 0.01458621276371285
+            }
+          ]
+        },
+        {
+          "fraction": 0.8,
+          "valid": false,
+          "contacts": [
+            {
+              "body_1": "wrist_3_link",
+              "body_2": "visionpick_fixture",
+              "depth": 0.009269797970447156
+            }
+          ]
+        }
+      ],
+      "note": "Diagnostic only; only the checked MoveIt trajectory is executed"
+    },
+    {
+      "event": "plan",
+      "label": "safe_b",
+      "start": [
+        0.50073836669512,
+        -1.100598130362784,
+        0.29928406893894666,
+        -1.5691454309288788,
+        0.00023170836522639956,
+        -4.4904822483659056e-05
+      ],
+      "target": [
+        -0.6,
+        -1.1,
+        0.3,
+        -1.57,
+        0.0,
+        0.0
+      ],
+      "plan_only": true,
+      "status": 4,
+      "error_code": 1,
+      "points": 216,
+      "message": "",
+      "source": "",
+      "planning_seconds": 0.007623159,
+      "wall_seconds": 0.03620906500009369
+    },
+    {
+      "event": "executed",
+      "label": "safe_b",
+      "requested": [
+        -0.6,
+        -1.1,
+        0.3,
+        -1.57,
+        0.0,
+        0.0
+      ],
+      "planned_endpoint": [
+        -0.5996916596251539,
+        -1.100786101544276,
+        0.3000492155770771,
+        -1.5696890912600794,
+        -0.0008538065729662776,
+        0.0008257042695768177
+      ],
+      "measured": [
+        -0.5996916596102257,
+        -1.100786101584298,
+        0.30004921558492675,
+        -1.5696890911898718,
+        -0.0008538067820376473,
+        0.0008257042947668382
+      ],
+      "max_error": 6.615790904473604e-10,
+      "excursion": [
+        1.1004300262727038,
+        0.3102954611173021,
+        0.045231170370106044,
+        0.5078516648632143,
+        1.5759971580548637,
+        0.19253839981881207
+      ],
+      "feedback_samples": 10695,
+      "trajectory_checks": 639,
+      "measured_state_checks": 325,
+      "planned_duration_seconds": 21.496102703,
+      "execution_wall_seconds": 23.429390270999875,
+      "execution_sim_seconds": 21.744,
+      "status": 4,
+      "error_code": 1,
+      "contact_messages": {
+        "visionpick_table": 0,
+        "visionpick_fixture": 0
+      },
+      "robot_workcell_contacts": 0
+    },
+    {
+      "event": "plan",
+      "label": "home",
+      "start": [
+        -0.5996916596251529,
+        -1.100786101543555,
+        0.3000492155790773,
+        -1.569689091256666,
+        -0.0008538065750951958,
+        0.0008257042695768164
+      ],
+      "target": [
+        0.0,
+        -1.57,
+        0.0,
+        -1.57,
+        0.0,
+        0.0
+      ],
+      "plan_only": true,
+      "status": 4,
+      "error_code": 1,
+      "points": 46,
+      "message": "",
+      "source": "",
+      "planning_seconds": 0.016587773,
+      "wall_seconds": 0.0289843949999522
+    },
+    {
+      "event": "executed",
+      "label": "home",
+      "requested": [
+        0.0,
+        -1.57,
+        0.0,
+        -1.57,
+        0.0,
+        0.0
+      ],
+      "planned_endpoint": [
+        -0.0006200968376360834,
+        -1.5703933157096617,
+        3.720128815621129e-05,
+        -1.570557510631159,
+        -0.0009112871219404042,
+        0.0008859303435310721
+      ],
+      "measured": [
+        -0.0006200976316571034,
+        -1.5703933150872342,
+        3.7201685799639305e-05,
+        -1.5705575106300034,
+        -0.000911287121866368,
+        0.0008859303434512467
+      ],
+      "max_error": 8.82245577808749e-10,
+      "excursion": [
+        0.5990715619052712,
+        0.46960721347452083,
+        0.30001201384909526,
+        0.0008684193732095835,
+        5.748054676270602e-05,
+        6.022607386556083e-05
+      ],
+      "feedback_samples": 2313,
+      "trajectory_checks": 128,
+      "measured_state_checks": 61,
+      "planned_duration_seconds": 4.442126722,
+      "execution_wall_seconds": 4.965172593999796,
+      "execution_sim_seconds": 4.682,
+      "status": 4,
+      "error_code": 1,
+      "contact_messages": {
+        "visionpick_table": 0,
+        "visionpick_fixture": 0
+      },
+      "robot_workcell_contacts": 0
+    },
+    {
+      "event": "PASS",
+      "milestone": 2
+    }
+  ],
+  "prior_commit": "3586f036b765835145b11c70b849123a913b8455",
+  "verification_context": {
+    "ros_domain_id": 73,
+    "gz_partition": "visionpick_m1",
+    "gui_enabled": true,
+    "unit_tests_passed": 61,
+    "unit_tests_previous": 21,
+    "physics": "Gazebo Harmonic / DART",
+    "trajectory_check_max_joint_step_rad": 0.01,
+    "velocity_scaling": 0.05,
+    "acceleration_scaling": 0.05
+  },
+  "milestone1_regression": {
+    "baseline": [
+      {
+        "test": "direct",
+        "status": "PASS",
+        "max_error": 1.99269767353627e-12,
+        "measured": [
+          [
+            0.09999999999800731,
+            -1.5699999999999952,
+            6.123060869107482e-15,
+            -1.569999999999983,
+            -1.0137165178793526e-14,
+            0.07999999999840585
+          ],
+          [
+            -0.09999999999908128,
+            -1.569999999999993,
+            6.1230669541921316e-15,
+            -1.5699999999999805,
+            -1.0137198016566904e-14,
+            -0.07999999999926499
+          ],
+          [
+            -5.669708061971473e-13,
+            -1.5699999999999952,
+            6.123063837110913e-15,
+            -1.5699999999999839,
+            -1.0137163457622652e-14,
+            -4.5357664580199347e-13
+          ]
+        ]
+      },
+      {
+        "test": "moveit",
+        "status": "PASS",
+        "max_error": 0.00496720969214592,
+        "measured": [
+          [
+            0.09932300265802846,
+            -1.5730017306473698,
+            -0.004516458132328209,
+            -1.5676353279255806,
+            0.00028956857620459524,
+            0.08003457872267912
+          ],
+          [
+            -0.10180530837698502,
+            -1.5713690976988883,
+            -0.001040084100409572,
+            -1.5696527388652475,
+            0.0034397186101325196,
+            -0.078416227644162
+          ],
+          [
+            0.0020032673742955017,
+            -1.573353210960865,
+            0.0049672096921520425,
+            -1.5699659047083092,
+            -0.0029217917046620795,
+            -0.0032363968469342986
+          ]
+        ]
+      },
+      {
+        "test": "home",
+        "status": "PASS",
+        "max_error": 5.2859664425126557e-14,
+        "measured": [
+          [
+            2.008350557412698e-14,
+            -1.5700000000000325,
+            5.2859664425126557e-14,
+            -1.5699999999999898,
+            -3.4360635581307206e-14,
+            -3.2446082848553046e-14
+          ]
+        ]
+      }
+    ],
+    "regression": [
+      {
+        "test": "direct",
+        "status": "PASS",
+        "max_error": 1.1860651349948625e-12,
+        "measured": [
+          [
+            0.09981134372179068,
+            -1.5709927919185704,
+            0.0005123404813961504,
+            -1.5695483829523296,
+            -0.0004626090601186143,
+            0.07967906932903562
+          ],
+          [
+            -0.10018865627623669,
+            -1.5709927919185696,
+            0.0005123404813961525,
+            -1.5695483829523265,
+            -0.00046260906011861533,
+            -0.08032093066938625
+          ],
+          [
+            -0.00018865627737771906,
+            -1.5709927919185704,
+            0.0005123404813961504,
+            -1.5695483829523298,
+            -0.0004626090601186143,
+            -0.0003209306702990837
+          ]
+        ]
+      },
+      {
+        "test": "moveit",
+        "status": "PASS",
+        "max_error": 0.004829894477392349,
+        "measured": [
+          [
+            0.09630566662405413,
+            -1.5680818941408783,
+            -0.0034464506745678445,
+            -1.567356734465533,
+            -0.0014795825967241344,
+            0.0834544898245455
+          ],
+          [
+            -0.10345184008953513,
+            -1.568572665419717,
+            -0.004164764352854019,
+            -1.568097568418068,
+            -0.00401899666978553,
+            -0.07705145279590084
+          ],
+          [
+            -0.0027949482127833016,
+            -1.573400402958748,
+            0.0031394657246649827,
+            -1.5647184884749374,
+            -0.003347586691617538,
+            -0.0022044955679703473
+          ]
+        ]
+      },
+      {
+        "test": "home",
+        "status": "PASS",
+        "max_error": 2.560174294785611e-13,
+        "measured": [
+          [
+            -1.3134899740379613e-13,
+            -1.5700000000001582,
+            1.506013118058441e-13,
+            -1.569999999999744,
+            -1.6238903799269948e-13,
+            -1.0360059345247186e-13
+          ]
+        ]
+      }
+    ]
+  },
+  "shutdown": {
+    "supervisor_exited": true,
+    "remaining_session_processes": 0,
+    "method": "SIGINT launch; session-scoped cleanup",
+    "upstream_crash_fixed": false
+  },
+  "interface_audit": "PASS",
+  "duplicate_launch": {
+    "exit_code": 1,
+    "message": "VisionPick launch is already running"
+  },
+  "final_nominal_home": {
+    "utc": "2026-11-14T10:45:26.058331+00:00",
+    "sim_ns": 239458000000,
+    "event": "verified",
+    "label": "home",
+    "requested": [
+      0.0,
+      -1.57,
+      0.0,
+      -1.57,
+      0.0,
+      0.0
+    ],
+    "measured": [
+      -6.003078936863238e-15,
+      -1.5700000000000025,
+      3.421672991813211e-15,
+      -1.5699999999999976,
+      -1.3890639513164812e-14,
+      8.576580878610767e-15
+    ],
+    "absolute_error": [
+      6.003078936863238e-15,
+      2.4424906541753444e-15,
+      3.421672991813211e-15,
+      2.4424906541753444e-15,
+      1.3890639513164812e-14,
+      8.576580878610767e-15
+    ],
+    "max_error": 1.3890639513164812e-14,
+    "excursion": [
+      0.0006200968376300813,
+      0.00039331570965606133,
+      3.720128815450709e-05,
+      0.0005575106311546119,
+      0.0009112871219286734,
+      0.0008859303435224946
+    ],
+    "sample_count": 3195
+  }
+}
